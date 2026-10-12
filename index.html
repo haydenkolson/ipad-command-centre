@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10141d">
+<title>Command Centre</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #10141d;
+  --panel: #1b2230;
+  --line: #30394b;
+  --text: #f2f5fb;
+  --muted: #a2aec2;
+  --accent: #9bbcff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 28px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+}
+main { max-width: 1100px; margin: auto; }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+.eyebrow {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+h1 { font-size: 28px; margin: 8px 0 0; }
+.clock {
+  font-size: clamp(52px, 9vw, 88px);
+  font-weight: 650;
+  letter-spacing: -4px;
+  line-height: 1.1;
+}
+.date { color: var(--muted); margin-top: 8px; }
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  min-width: 0;
+}
+h2 { font-size: 17px; margin: 0 0 18px; }
+.muted { color: var(--muted); font-size: 14px; }
+.row { display: flex; gap: 9px; }
+input, textarea, button {
+  font: inherit;
+  border-radius: 10px;
+}
+input, textarea {
+  background: #111722;
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: 12px;
+  min-width: 0;
+}
+input { width: 100%; }
+textarea {
+  width: 100%;
+  min-height: 170px;
+  resize: vertical;
+  line-height: 1.6;
+}
+button {
+  border: 1px solid var(--line);
+  background: #283449;
+  color: var(--text);
+  padding: 11px 15px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+.add { background: var(--accent); color: #101722; font-weight: 650; }
+.task-list { padding: 0; margin: 18px 0 0; list-style: none; }
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.task input { width: 18px; height: 18px; accent-color: var(--accent); }
+.task span { flex: 1; overflow-wrap: anywhere; }
+.task.done span { text-decoration: line-through; color: var(--muted); }
+.remove { padding: 5px 9px; background: transparent; }
+.section { margin-top: 18px; }
+footer { color: var(--muted); font-size: 12px; text-align: center; margin: 22px 0 5px; }
+@media (max-width: 650px) {
+  body { padding: 18px; }
+  .grid { grid-template-columns: 1fr; }
+  header { align-items: flex-start; }
+  h1 { font-size: 23px; }
+  .clock { font-size: 56px; letter-spacing: -2px; }
+  .panel { padding: 18px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <div class="eyebrow">Your personal space</div>
+      <h1>Command Centre</h1>
+    </div>
+    <div class="eyebrow">VERSION 1.0</div>
+  </header>
+
+  <section class="panel" style="margin-bottom:18px">
+    <div class="eyebrow" id="greeting">WELCOME BACK</div>
+    <div class="clock" id="clock">00:00</div>
+    <div class="date" id="date"></div>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Today's priorities</h2>
+      <form class="row" id="task-form">
+        <input id="task-input" placeholder="Add a task..." maxlength="160" autocomplete="off">
+        <button class="add" type="submit">Add</button>
+      </form>
+      <ul class="task-list" id="task-list"></ul>
+      <p class="muted" id="task-count"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Quick notes</h2>
+      <textarea id="notes" placeholder="Ideas, reminders, things to remember..."></textarea>
+      <div class="row section">
+        <button id="clear-notes" type="button">Clear notes</button>
+        <span class="muted" id="save-status" style="align-self:center">Saved on this device</span>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid section">
+    <section class="panel">
+      <h2>Your next small win</h2>
+      <p class="muted">Choose one useful thing to finish today. Small progress counts.</p>
+      <button id="focus-button" type="button">Give me a focus idea</button>
+      <p id="focus-idea" aria-live="polite"></p>
+    </section>
+    <section class="panel">
+      <h2>Quick links</h2>
+      <div class="row" style="flex-wrap:wrap">
+        <button data-url="https://calendar.google.com/">Calendar</button>
+        <button data-url="https://keep.google.com/">Notes</button>
+        <button data-url="https://github.com/">GitHub</button>
+      </div>
+      <p class="muted section">These links open in your browser.</p>
+    </section>
+  </div>
+
+  <footer>Your dashboard · Tasks and notes stay in this browser on this device.</footer>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const storage = {
+  get(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : JSON.parse(value);
+    } catch { return fallback; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch { $("save-status").textContent = "Could not save on this device"; }
+  }
+};
+
+function updateClock() {
+  const now = new Date();
+  $("clock").textContent = now.toLocaleTimeString([], {
+    hour: "2-digit", minute: "2-digit", hour12: false
+  });
+  $("date").textContent = now.toLocaleDateString("en-AU", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric"
+  });
+  const hour = now.getHours();
+  $("greeting").textContent =
+    hour < 12 ? "GOOD MORNING" : hour < 18 ? "GOOD AFTERNOON" : "GOOD EVENING";
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+let tasks = storage.get("cc-tasks", []);
+let notes = storage.get("cc-notes", "");
+$("notes").value = notes;
+
+function renderTasks() {
+  const list = $("task-list");
+  list.replaceChildren();
+  tasks.forEach((task, index) => {
+    const li = document.createElement("li");
+    li.className = "task" + (task.done ? " done" : "");
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.checked = task.done;
+    check.setAttribute("aria-label", "Mark " + task.text + " complete");
+    check.addEventListener("change", () => {
+      tasks[index].done = check.checked;
+      storage.set("cc-tasks", tasks);
+      renderTasks();
+    });
+    const span = document.createElement("span");
+    span.textContent = task.text;
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.type = "button";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", "Remove task");
+    remove.addEventListener("click", () => {
+      tasks.splice(index, 1);
+      storage.set("cc-tasks", tasks);
+      renderTasks();
+    });
+    li.append(check, span, remove);
+    list.append(li);
+  });
+  const remaining = tasks.filter(t => !t.done).length;
+  $("task-count").textContent = tasks.length
+    ? remaining + " remaining · " + (tasks.length - remaining) + " completed"
+    : "Add a task above to get started.";
+}
+renderTasks();
+
+$("task-form").addEventListener("submit", event => {
+  event.preventDefault();
+  const text = $("task-input").value.trim();
+  if (!text) return;
+  tasks.push({ text, done: false });
+  storage.set("cc-tasks", tasks);
+  $("task-input").value = "";
+  renderTasks();
+});
+
+let saveTimer;
+$("notes").addEventListener("input", () => {
+  $("save-status").textContent = "Saving...";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    storage.set("cc-notes", $("notes").value);
+    $("save-status").textContent = "Saved on this device";
+  }, 250);
+});
+
+$("clear-notes").addEventListener("click", () => {
+  if (!confirm("Clear all your notes?")) return;
+  $("notes").value = "";
+  storage.set("cc-notes", "");
+  $("save-status").textContent = "Notes cleared";
+});
+
+const ideas = [
+  "Spend five minutes planning tomorrow.",
+  "Tidy one small area around you.",
+  "Get outside for a short walk.",
+  "Finish one task you've been putting off.",
+  "Take a break from your screen and reset."
+];
+$("focus-button").addEventListener("click", () => {
+  $("focus-idea").textContent = ideas[Math.floor(Math.random() * ideas.length)];
+});
+
+document.querySelectorAll("[data-url]").forEach(button => {
+  button.addEventListener("click", () => {
+    window.open(button.dataset.url, "_blank", "noopener");
+  });
+});
+</script>
+</body>
+</html>
