@@ -60,7 +60,7 @@ async function updateWeather(){
     if($('weather-temp').textContent==='--°C')$('weather-desc').textContent='Weather unavailable';
   }finally{weatherBusy=false}
 }
-updateWeather();setInterval(updateWeather,20*60*1000);
+updateWeather();setInterval(updateWeather,5*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateWeather()});
 
 const WASHER_API='https://kitchen-dashboard-api.haydenkolson-1a1.workers.dev/';
