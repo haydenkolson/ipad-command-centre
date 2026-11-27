@@ -9,7 +9,7 @@
 .music{flex:0 1 360px;min-width:0;display:flex;align-items:center;gap:12px;background:#131a26;border:1px solid var(--line);border-radius:12px;padding:10px}.music-art{flex:none;width:64px;height:64px;border-radius:8px;background:#222b3b;display:grid;place-items:center;overflow:hidden;color:var(--muted);font-size:26px}.music-art img{width:100%;height:100%;object-fit:cover}.music-body{flex:1;min-width:0}.music-title,.music-artist{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.music-title{font-size:15px;font-weight:600}.music-artist{color:var(--muted);font-size:13px;margin-top:2px}.music-controls{display:flex;gap:8px;margin-top:8px}.music-btn{width:38px;height:38px;padding:0;border-radius:50%;display:grid;place-items:center}.music-btn svg{width:16px;height:16px;fill:currentColor}.music-play{background:var(--accent);border-color:var(--accent);color:#101722}.music-btn:disabled{opacity:.45;cursor:default}.music-connect{margin-top:8px;padding:7px 12px;font-size:13px;font-weight:650;background:#1db954;border-color:#1db954;color:#06120a}@media(max-width:540px){.hero{flex-wrap:wrap}.music{order:3;flex-basis:100%}}
 .weather{display:flex;align-items:center;gap:12px;text-align:right;min-width:0}.weather-icon{font-size:38px;line-height:1}.weather-temp{font-size:32px;font-weight:650;line-height:1.1}.weather-desc{color:var(--muted);font-size:13px;margin-top:5px}.weather-place{color:var(--muted);font-size:11px;margin-top:4px}@media(max-width:540px){.weather{gap:7px}.weather-icon{font-size:27px}.weather-temp{font-size:24px}.weather-desc{font-size:11px}.weather-place{font-size:10px}}
 </style></head><body><main>
-<section class="panel hero"><div><div class="clock" id="clock">00:00</div><div class="date" id="date"></div></div><div class="music" id="music" role="group" aria-label="Spotify now playing"><div class="music-art"><img id="music-art" alt="" hidden><span id="music-art-fallback" aria-hidden="true">♪</span></div><div class="music-body"><div class="music-title" id="music-title">Spotify</div><div class="music-artist" id="music-artist" aria-live="polite">Loading…</div><div class="music-controls" id="music-controls" hidden><button type="button" class="music-btn" id="music-prev" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button><button type="button" class="music-btn music-play" id="music-toggle" aria-label="Play"></button><button type="button" class="music-btn" id="music-next" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button></div><button type="button" class="music-connect" id="music-connect" hidden>Connect Spotify</button></div></div><div class="weather" role="status" aria-live="polite"><div class="weather-icon" id="weather-icon">☁️</div><div><div class="weather-temp" id="weather-temp">--°C</div><div class="weather-desc" id="weather-desc">Loading weather…</div><div class="weather-place">Bahrs Scrub, QLD</div></div></div></section>
+<section class="panel hero"><div><div class="clock" id="clock">00:00</div><div class="date" id="date"></div></div><div class="music" id="music" role="group" aria-label="Spotify now playing"><div class="music-art"><img id="music-art" alt="" hidden><span id="music-art-fallback" aria-hidden="true">♪</span></div><div class="music-body"><div class="music-title" id="music-title">Spotify</div><div class="music-artist" id="music-artist" aria-live="polite">Loading…</div><div class="music-controls" id="music-controls" hidden><button type="button" class="music-btn" id="music-prev" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button><button type="button" class="music-btn music-play" id="music-toggle" aria-label="Play"></button><button type="button" class="music-btn" id="music-next" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button></div><button type="button" class="music-connect" id="music-connect" hidden>Connect Spotify</button><button type="button" class="music-connect" id="music-share" hidden>Send to iPad</button></div></div><div class="weather" role="status" aria-live="polite"><div class="weather-icon" id="weather-icon">☁️</div><div><div class="weather-temp" id="weather-temp">--°C</div><div class="weather-desc" id="weather-desc">Loading weather…</div><div class="weather-place">Bahrs Scrub, QLD</div></div></div></section>
 <div class="calendars">
 <section class="panel calendar"><div class="person"><span class="dot" style="background:#9bbcff"></span><h2>Hayden's Calendar</h2></div><iframe class="calendar-frame" title="Hayden's Calendar" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;ctz=Australia%2FBrisbane&amp;showPrint=0&amp;mode=AGENDA&amp;title=Hayden&#x27;s%20Calendar&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showCalendars=0&amp;showTz=0&amp;showTabs=0&amp;src=aGF5ZGVua29sc29uQGdtYWlsLmNvbQ&amp;src=NmI3NTc5YzIyZTBmNzE3ZmJhYTFmMjFhNTFiMTVjMTQzYmNmMDYzNDcwYzI1NDc4OGU5NTM4YjdlMjU4MThjMUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=N2I3ZWFiZmRkM2IwNDhkOTQ3OWIzM2MyN2U2ZWFlZTFiOWJhYWJlZTc3OWZmMTdjZGNhMTc0NjlmZGJiMDBjYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZmMyYzAyNGYyMDBiZmIyOWVhYzk3M2Q0YTg0MGU2NDY5NjRjODhlMTE4YTkxYmY0YzJkMDM4Y2Q1ZTM2MGFmYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4tYXUuYXVzdHJhbGlhbiNob2xpZGF5QGdyb3VwLnYuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bmZsXy1tLTA1ZzNiXyU0ZWV3KyU0NW5nbGFuZCslNTBhdHJpb3RzI3Nwb3J0c0Bncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039be5&amp;color=%23ff0000&amp;color=%23d81b60&amp;color=%237cb342&amp;color=%23f09300&amp;color=%23002244" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe></section>
 <section class="panel calendar"><div class="person"><span class="dot" style="background:#e8a8d6"></span><h2>Mackenzie's Calendar</h2></div><iframe class="calendar-frame" title="Mackenzie's Calendar" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;ctz=Australia%2FBrisbane&amp;showPrint=0&amp;mode=AGENDA&amp;title=Hayden&#x27;s%20Calendar&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showCalendars=0&amp;showTz=0&amp;showTabs=0&amp;src=Y29hY2hrZW56MDNAZ21haWwuY29t&amp;color=%23e4c441" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe></section>
@@ -90,6 +90,7 @@ function musicView({title,artist,art,mode,playing}){
   if(art){if(img.getAttribute('src')!==art)img.src=art;img.hidden=false;$('music-art-fallback').hidden=true}
   else{img.hidden=true;img.removeAttribute('src');$('music-art-fallback').hidden=false}
   $('music-controls').hidden=mode!=='controls';$('music-connect').hidden=mode!=='connect';
+  $('music-share').hidden=!(mode==='controls'&&spPairMode());
   if(mode==='controls')spSetToggle(playing);
 }
 function spPickArt(images){const s=(images||[]).slice().sort((a,b)=>(a.width||0)-(b.width||0));const p=s.find(i=>(i.width||0)>=128)||s[s.length-1];return p&&p.url}
@@ -156,8 +157,35 @@ async function spApi(method,path){
   if(r.status===429)spBackoff=Date.now()+(Number(r.headers.get('Retry-After'))||10)*1000;
   return r;
 }
+// Pairing: older iPads can't load Spotify's sign-in page, so sign in on a newer device
+// (open the dashboard with ?pair), then tap "Send to iPad" to hand the connection over.
+let spSharing=false;
+try{if(new URLSearchParams(location.search).has('pair'))localStorage.setItem('cc-spotify-pair','1')}catch(e){}
+function spPairMode(){try{return localStorage.getItem('cc-spotify-pair')==='1'}catch(e){return false}}
+function spImportFromHash(){
+  const m=location.hash.match(/^#sp=(.+)$/);if(!m)return;
+  history.replaceState(null,'',SPOTIFY_REDIRECT);
+  try{localStorage.removeItem('cc-spotify-pair')}catch(e){}
+  spSave({access:'',refresh:decodeURIComponent(m[1]),expires:0});
+  musicNotice('Spotify connected');
+}
+async function spotifyShare(){
+  if(!spToken||!spToken.refresh)return;
+  spSharing=true;clearTimeout(spTimer);
+  const link=SPOTIFY_REDIRECT+'#sp='+encodeURIComponent(spToken.refresh);
+  try{
+    if(navigator.share)await navigator.share({title:'Connect the iPad dashboard to Spotify',url:link});
+    else await navigator.clipboard.writeText(link);
+  }catch(e){
+    if(e&&e.name==='AbortError'){spSharing=false;updateMusic();return}
+    window.prompt('Copy this link and open it on the iPad:',link);
+  }
+  spSave(null);try{localStorage.removeItem('cc-spotify-pair')}catch(e){}
+  spNoticeUntil=0;musicView({title:'Spotify',artist:'Sent. Open the link on the iPad',mode:'none'});
+}
 function spSchedule(ms){clearTimeout(spTimer);spTimer=setTimeout(updateMusic,ms)}
 async function updateMusic(){
+  if(spSharing)return;
   if(!SPOTIFY_CLIENT_ID){musicView({title:'Spotify',artist:'Setup needed: add your Client ID',mode:'none'});return}
   if(!spToken){musicView({title:'Spotify',artist:'Not connected',mode:'connect'});return}
   if(document.hidden||spBusy)return;
@@ -201,6 +229,8 @@ async function musicControl(action){
   finally{btns.forEach(b=>b.disabled=false);setTimeout(updateMusic,700)}
 }
 $('music-connect').addEventListener('click',spotifyConnect);
+$('music-share').addEventListener('click',spotifyShare);
+spImportFromHash();
 $('music-prev').addEventListener('click',()=>musicControl('prev'));
 $('music-toggle').addEventListener('click',()=>musicControl('toggle'));
 $('music-next').addEventListener('click',()=>musicControl('next'));
